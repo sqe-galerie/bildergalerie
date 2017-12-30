@@ -1,3 +1,6 @@
 .idea/
 vendor/
 local.php
+.vagrant/
+uploads/
+!uploads/README.md
