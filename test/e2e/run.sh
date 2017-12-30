@@ -5,7 +5,7 @@
 # SERVER_PID=$!
 
 # start the php server (dont show logs)
-php -S localhost:8888 -t ../../  >& /dev/null &
+php -S 0.0.0.0:8888 -t ../../  >& /dev/null &
 SERVER_PID=$!
 
 # run the e2e tests
