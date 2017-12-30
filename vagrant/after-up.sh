@@ -10,3 +10,8 @@ sudo echo "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','
 # run composer and install dependencies
 cd ${VM_SYNC_FOLDER}
 composer install
+
+# make sure local.php exists; if not, copy the sample config file
+if [ ! -f ${VM_SYNC_FOLDER}/local.php ]; then
+    cp ${VM_SYNC_FOLDER}/local_sample.php ${VM_SYNC_FOLDER}/local.php
+fi
