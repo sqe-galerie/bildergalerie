@@ -35,6 +35,10 @@ EOF
 )
 sudo echo "${NGINX}" > /etc/nginx/sites-available/default
 sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+sudo sed -i -e 's/sendfile on/sendfile off/' /etc/nginx/nginx.conf
+
+# reload nginx config
 sudo nginx -s reload
 
 # Setup database
