@@ -1,0 +1,28 @@
+sudo: required
+dist: trusty
+language: php
+php:
+  - 7
+
+env:
+  - NOTE_RELEASE=8.x
+
+services:
+  - mysql
+
+addons:
+  chrome: stable
+
+before_install:
+  - stty cols 80
+  - sudo rm -rf ~/.nvm - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
+  - sudo apt-get install -y nodejs
+
+install:
+  - npm install -g testcafe
+  - cp local_travis.php local.php
+  - composer install
+  - ./travis-setup-db.sh
+
+script:
+  - ./test/e2e/run.sh
