@@ -1,0 +1,10 @@
+{
+  "name": "bildergalerie",
+  "version": "0.0.1",
+  "dependencies": {
+    "mysql": "^2.1.x"
+  },
+  "devDependencies": {
+    "testcafe": "^0.18.6"
+  }
+}
