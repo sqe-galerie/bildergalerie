@@ -2,9 +2,13 @@
   "name": "bildergalerie",
   "version": "0.0.1",
   "dependencies": {
+    "fs-extra": "^5.0.0",
     "mysql": "^2.1.x"
   },
   "devDependencies": {
     "testcafe": "^0.18.6"
+  },
+  "scripts": {
+    "reset-db": "node ./test/util/reset.js"
   }
 }

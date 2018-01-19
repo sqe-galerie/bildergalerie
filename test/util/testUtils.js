@@ -1,9 +1,10 @@
 const mysql = require('mysql');
 const fs = require('fs');
 const path = require('path');
+const DB = require('./dbConfig.json');
 
-const sqlFilePath = './dbReset.sql';
-const uploadsPath = '../../uploads';
+const sqlFilePath = path.resolve(__dirname, './dbReset.sql');
+const uploadsPath = path.resolve(__dirname, '../../uploads');
 
 module.exports = {
     resetDB: function () {
@@ -16,16 +17,16 @@ module.exports = {
             const sqlQuery = data.toString();
 
             let connection = mysql.createConnection({
-                host: 'localhost',
-                user: 'homestead',
-                password: 'secret',
-                database: 'sqe_bildergalerie',
+                host: DB.host,
+                user: DB.user,
+                password: DB.password,
+                database: DB.database,
                 multipleStatements: true
             });
 
             connection.connect();
 
-            connection.query(sqlQuery, (err, result) => {
+            connection.query(sqlQuery, (err) => {
                 if (err) {
                     throw err;
                 }
@@ -42,7 +43,7 @@ module.exports = {
             for (const file of files) {
                 // remove all files except README.md
                 if (file !== "README.md") {
-                    fs.unlink(path.join(uploadsPath, file), err => {
+                    fs.remove(path.join(uploadsPath, file), err => {
                         if (err) throw err;
                     });
                 }
