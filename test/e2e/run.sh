@@ -12,6 +12,9 @@ SERVER_PID=$!
 
 # run the e2e tests
 testcafe "chrome:headless" test/**/*.test.js
+TEST_RESULT=$?
 
 # shutdown the server
-kill $SERVER_PID
+kill ${SERVER_PID}
+
+exit ${TEST_RESULT}
