@@ -5,7 +5,7 @@ php:
   - 7
 
 env:
-  - NOTE_RELEASE=8.x
+  - NODE_RELEASE=8.x
 
 services:
   - mysql
