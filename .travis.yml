@@ -11,10 +11,18 @@ services:
   - mysql
 
 addons:
-  chrome: stable
+  firefox: latest
+  apt:
+    sources:
+     - google-chrome
+    packages:
+     - google-chrome-stable fluxbox
 
 before_install:
-  - stty cols 80
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+  - fluxbox >/dev/null 2>&1 &
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
   - node --version
 
@@ -25,4 +33,4 @@ install:
   - ./travis-setup-db.sh
 
 script:
-  - ./test/e2e/run.sh
+  - testcafe chrome,firefox test/**/*.test.js --app "php -S 0.0.0.0:8888 -t ./  >& /dev/null"
