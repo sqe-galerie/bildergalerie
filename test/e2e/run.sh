@@ -11,7 +11,7 @@ php -S 0.0.0.0:8888 -t ../../  >& /dev/null &
 SERVER_PID=$!
 
 # run the e2e tests
-testcafe "chrome:headless" test/**/*.test.js
+testcafe all test/**/*.test.js
 TEST_RESULT=$?
 
 # shutdown the server
