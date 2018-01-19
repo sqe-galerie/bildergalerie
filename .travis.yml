@@ -33,4 +33,4 @@ install:
   - ./travis-setup-db.sh
 
 script:
-  - testcafe chrome,firefox test/**/*.test.js --app "php -S 0.0.0.0:8888 -t ./  >& /dev/null"
+  - testcafe chrome,firefox test/**/*.test.js --app "php -S 0.0.0.0:8888 -t ./"
