@@ -11,7 +11,7 @@ services:
   - mysql
 
 addons:
-  firefox: latest
+  firefox: latestr
   apt:
     sources:
      - google-chrome
@@ -29,6 +29,7 @@ before_install:
 install:
   - npm install -g testcafe
   - cp local_travis.php local.php
+  - cp ./test/util/dbConfigTravis.json ./test/util/dbConfig.json
   - composer install
   - ./travis-setup-db.sh
 
