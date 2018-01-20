@@ -19,3 +19,9 @@ This launches a virtual machine containing all necessary dependencies (nginx web
 When the VM is running it will automatically sync the complete project folder with the VM's app directory.
 
 After VM has been started you can access the application with your browser at [http://5.5.5.5](http://5.5.5.5).
+
+## Reset local testing environment
+
+If you want to reset your testing environemnt (database / uploads directory) simply execute the `reset-db` npm script:
+
+    npm run reset-db
