@@ -4,3 +4,4 @@ local.php
 .vagrant/
 uploads/
 !uploads/README.md
+node_modules/
