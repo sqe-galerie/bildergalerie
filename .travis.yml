@@ -1,0 +1,37 @@
+sudo: required
+dist: trusty
+language: php
+php:
+  - 7
+
+env:
+  - TRAVIS_NODE_VERSION="8.3.0"
+
+services:
+  - mysql
+
+addons:
+  firefox: latestr
+  apt:
+    sources:
+     - google-chrome
+    packages:
+     - google-chrome-stable fluxbox
+
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  - fluxbox >/dev/null 2>&1 &
+  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+  - node --version
+
+install:
+  - npm install -g testcafe
+  - cp local_travis.php local.php
+  - cp ./test/util/dbConfigTravis.json ./test/util/dbConfig.json
+  - composer install
+  - ./travis-setup-db.sh
+
+script:
+  - testcafe chrome,firefox test/**/*.test.js --app "php -S 0.0.0.0:8888 -t ./"
