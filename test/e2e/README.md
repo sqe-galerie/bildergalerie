@@ -35,3 +35,6 @@ Use the command `./run.sh` to execute the e2e tests. The script perform the foll
     // cool: run tests on remote device
     testcafe remote test/**/*.test.js
     
+    // cool, too: run tests on chrome headless
+    testcafe "chrome:headless" test/**/*.test.js
+    

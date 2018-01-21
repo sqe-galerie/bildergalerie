@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 ## start the php server 
 # php -S localhost:8888 -t ../../ &
 # SERVER_PID=$!
@@ -10,6 +12,9 @@ SERVER_PID=$!
 
 # run the e2e tests
 testcafe all test/**/*.test.js
+TEST_RESULT=$?
 
 # shutdown the server
-kill $SERVER_PID
+kill ${SERVER_PID}
+
+exit ${TEST_RESULT}
