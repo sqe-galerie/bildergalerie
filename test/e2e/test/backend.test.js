@@ -8,15 +8,19 @@ fixture("Teste die Seite 'Backend'")
 
 
 test('erstelle eine neue Ausstellung', async t => {
+    // step 1 - generate values
     const uniqueName = "Ausstellung_" + (new Date().getTime());
 
+    // step 2 - perform steps
     await t.useRole(DEMO_USER);
     let page = await PageBackend(t).navigateToViaNavbar();
     let tabAustellungen = await page.tabs.chooseAusstellungen();
     let dialog = await tabAustellungen.clickNeueAustellung();
     await dialog.setTitel(uniqueName);
-    //await t.debug();
+    /* await t.debug(); */
     await dialog.setBeschreibung("Ein paar Worte zur Ausstellung...");
     await dialog.clickAnlegen();
+    
+    // step 3 - validate results
     await tabAustellungen.checkAusstellungWirdAngezeigt(uniqueName);
 });
