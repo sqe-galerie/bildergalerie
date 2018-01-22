@@ -1,7 +1,7 @@
 {
     "name" : "blefel/bildergalerie",
     "scripts": {
-        "test": "vendor/bin/phpunit test/unit"
+        "test": "phpunit test/unit"
     },
     "repositories": [
         {
