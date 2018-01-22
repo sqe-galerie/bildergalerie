@@ -1,6 +1,8 @@
 {
     "name" : "blefel/bildergalerie",
-
+    "scripts": {
+        "test": "phpunit test/unit"
+    },
     "repositories": [
         {
             "type": "package",
@@ -44,5 +46,8 @@
     "autoload": {
         "classmap": ["classes/", "includes/"],
         "exclude-from-classmap": ["includes/database"]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
     }
 }
