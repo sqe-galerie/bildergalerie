@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Frederic Welsch
- * Date: 18.01.2018
- * Time: 18:10
- */
+
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase {

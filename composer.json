@@ -1,6 +1,8 @@
 {
     "name" : "blefel/bildergalerie",
-
+    "scripts": {
+        "test": "vendor/bin/phpunit test/unit"
+    },
     "repositories": [
         {
             "type": "package",
