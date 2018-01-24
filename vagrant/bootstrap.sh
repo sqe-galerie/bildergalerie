@@ -11,6 +11,9 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
+	# set client body size
+    client_max_body_size 5M;
+
 	root ${VM_SYNC_FOLDER};
 
 	# Add index.php to the list if you are using PHP
