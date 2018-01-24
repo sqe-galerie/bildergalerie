@@ -1,7 +1,13 @@
 const mysql = require('mysql');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
-const DB = require('./dbConfig.json');
+
+const DB = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE,
+};
 
 const sqlFilePath = path.resolve(__dirname, './dbReset.sql');
 const uploadsPath = path.resolve(__dirname, '../../uploads');
