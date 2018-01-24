@@ -11,7 +11,7 @@ services:
   - mysql
 
 addons:
-  firefox: latestr
+  firefox: latest
   apt:
     sources:
      - google-chrome
@@ -34,3 +34,4 @@ install:
 
 script:
   - testcafe chrome,firefox test/**/*.test.js --app "php -S 0.0.0.0:8888 -t ./"
+  - npm run test:unit
