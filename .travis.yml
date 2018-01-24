@@ -28,8 +28,7 @@ before_install:
 
 install:
   - npm install -g testcafe
-  - cp local_travis.php local.php
-  - cp ./test/util/dbConfigTravis.json ./test/util/dbConfig.json
+  - cp .env.travis .env
   - composer install
   - ./travis-setup-db.sh
 
