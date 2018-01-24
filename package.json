@@ -13,6 +13,7 @@
     "reset-db": "env-cmd .env node ./test/util/reset.js",
     "test:e2e": "env-cmd .env testcafe chrome test/**/*.test.js",
     "test:e2e:all": "env-cmd .env testcafe all test/**/*.test.js",
-    "test:e2e:headless": "env-cmd .env testcafe \"chrome:headless\" test/**/*.test.js"
+    "test:e2e:headless": "env-cmd .env testcafe \"chrome:headless\" test/**/*.test.js",
+    "test:unit": "composer test"
   }
 }
