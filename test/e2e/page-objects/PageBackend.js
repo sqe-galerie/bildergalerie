@@ -1,5 +1,39 @@
 import { Selector } from "testcafe";
 
+const createTabAusstellungen = (t) => {
+    return {
+        /**
+         * Check, if the exhibition with the given name is present on screen
+         * @param {*} name e.g. "Bilder 2018"
+         */
+        async checkAusstellungWirdAngezeigt(name) {
+            const text = await Selector("#exhibition_table_body").innerText;
+            await t.expect(text).contains(name)
+        },
+            /**
+             * Clicks the button to create a new exhibition (which will show a dialog)
+             * @returns Promise for the Page-Object of the 'Neue Ausstellung hinzufügen'-Dialog
+             */
+            async clickNeueAustellung() {
+            await t.click("button.open_category_dialog");
+            return {
+                async setTitel(value) {
+                    await t.typeText("#category_name", value);
+                },
+                async setBeschreibung(value) {
+                    await t.typeText("#category_description", value);
+                },
+                async clickAnlegen() {
+                    await t.click("#dialog-save-ausstellung-btn");
+                },
+                async clickAbbrechen() {
+                    throw new Error("nicht implementiert");
+                }
+            }
+        }
+    }
+};
+
 export default function (t) {
     return {
         /**
@@ -20,37 +54,7 @@ export default function (t) {
                      */
                     async chooseAusstellungen() {
                         await t.click("#tab_exhibitions > a");
-                        return {
-                            /**
-                             * Check, if the exhibition with the given name is present on screen
-                             * @param {*} name e.g. "Bilder 2018"
-                             */
-                            async checkAusstellungWirdAngezeigt(name) {
-                                const text = await Selector("#exhibition_table_body").innerText;
-                                await t.expect(text).contains(name)
-                            },
-                            /**
-                             * Clicks the button to create a new exhibition (which will show a dialog)
-                             * @returns Promise for the Page-Object of the 'Neue Ausstellung hinzufügen'-Dialog
-                             */
-                            async clickNeueAustellung() {
-                                await t.click("button.open_category_dialog");
-                                return { 
-                                    async setTitel(value) {
-                                        await t.typeText("#category_name", value);
-                                    },
-                                    async setBeschreibung(value) {
-                                        await t.typeText("#category_description", value);
-                                    },
-                                    async clickAnlegen() {
-                                        await t.click("body > div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons.ui-draggable.ui-resizable > div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix > div > button:nth-child(1)");
-                                    },
-                                    async clickAbbrechen() {
-                                        throw new Error("nicht implementiert");
-                                    }
-                                }
-                            }
-                        }
+                        return createTabAusstellungen(t)
                     },
                     /**
                      * Choose the Tab 'Gemälde' and get its Page-Object
