@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")"
 
-## start the php server 
+## start the php server
 # php -S localhost:8888 -t ../../ &
 # SERVER_PID=$!
 

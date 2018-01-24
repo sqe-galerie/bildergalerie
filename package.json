@@ -9,6 +9,7 @@
     "testcafe": "^0.18.6"
   },
   "scripts": {
-    "reset-db": "node ./test/util/reset.js"
+    "reset-db": "node ./test/util/reset.js",
+    "test:e2e": " set SERVER_URL=http://5.5.5.5 && testcafe chrome test/**/*.test.js"
   }
 }
