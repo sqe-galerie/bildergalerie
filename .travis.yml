@@ -27,7 +27,7 @@ before_install:
   - node --version
 
 install:
-  - npm install -g testcafe
+  - npm install
   - cp .env.travis .env
   - composer install
   - ./travis-setup-db.sh
