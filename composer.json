@@ -39,7 +39,8 @@
         "makeusabrew/bootbox": "dev-master",
         "1000hz/bootstrap-validator": "dev-master",
         "callmenick/five-star-rating": "dev-master",
-        "crodas/notoj": "^1.2"
+        "crodas/notoj": "^1.2",
+        "vlucas/phpdotenv": "^2.4"
 
     },
 

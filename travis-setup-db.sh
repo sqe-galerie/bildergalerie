@@ -1,8 +1,25 @@
 #!/usr/bin/env bash
 
-MYSQL_USER='travis'
-MYSQL_PW=''
-MYSQL_DB='sqe_bildergalerie'
+envFile=.env
+
+# check preconditions
+if [ ! -f ${envFile} ]; then
+    echo "Your environment is not set up correctly! Move the .env.example to .env, and edit your database (DB_*)" \
+            "credentials."
+fi
+
+
+# set up environment variables from .env-file
+while read line   # iterate over lines
+do
+    if [ ! -z ${line}  ]; then
+        declare -x  "${line}"
+    fi
+done <<< "$(cat ${envFile})" # this makes sure that the loop will not be executed in a subshell
+
+MYSQL_USER=${DB_USER}
+MYSQL_PW=${DB_PASS}
+MYSQL_DB=${DB_DATABASE}
 
 # Setup database
 sudo echo "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"  | \
