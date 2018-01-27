@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/sqe-galerie/bildergalerie.svg?branch=develop)](https://travis-ci.org/sqe-galerie/bildergalerie)
-[![Coverage](https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie&metric=coverage#.svg)](https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie)
- [![Coverage](https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie&metric=new_coverage#.svg)](https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie)
+[![Coverage](https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie%3Adevelop&metric=coverage#.svg)](https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie%3Adevelop)
+ [![Coverage](https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie%3Adevelop&metric=new_coverage#.svg)](https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie%3Adevelop)
  
  
 
