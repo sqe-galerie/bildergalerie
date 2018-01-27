@@ -7,3 +7,4 @@ uploads/
 !uploads/README.md
 node_modules/
 _coverage.xml
+.scannerwork/
