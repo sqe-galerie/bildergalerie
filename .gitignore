@@ -6,5 +6,6 @@ local.php
 uploads/
 !uploads/README.md
 node_modules/
-_coverage.xml
+_phpunit.tests.xml
+_phpunit.coverage.xml
 .scannerwork/
