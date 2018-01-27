@@ -1,3 +1,9 @@
+[![Build Status](https://travis-ci.org/sqe-galerie/bildergalerie.svg?branch=develop)](https://travis-ci.org/sqe-galerie/bildergalerie)
+
+[[https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie][https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie&metric=coverage#.svg]] 
+
+[[https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie][https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie&metric=new_coverage#.svg]]
+
 # Getting started
 
 First install required dependencies with composer:
