@@ -1,15 +1,26 @@
 #!/usr/bin/env bash
 
-MYSQL_USER='homestead'
-MYSQL_PW='secret'
-MYSQL_DB='sqe_bildergalerie'
 VM_SYNC_FOLDER='/vagrant_data'
+
+# make sure .env exists; if not, copy the sample config file
+if [ ! -f ${VM_SYNC_FOLDER}/.env ]; then
+    cp ${VM_SYNC_FOLDER}/.env.sample ${VM_SYNC_FOLDER}/.env
+fi
+
+. ${VM_SYNC_FOLDER}/vagrant/read-env.sh
+
+MYSQL_USER=${DB_USER}
+MYSQL_PW=${DB_PASS}
+MYSQL_DB=${DB_DATABASE}
 
 # setup default sites-available
 NGINX=$(cat <<EOF
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
+
+	# set client body size
+    client_max_body_size 5M;
 
 	root ${VM_SYNC_FOLDER};
 
