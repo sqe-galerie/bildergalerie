@@ -11,6 +11,13 @@ services:
   - mysql
 
 addons:
+  sonarcloud:
+    organization: "de-htwsaar-sqe-bildergalerie"
+    token:
+      secure: "gIE94T0VO9Uo+RPe1/bfd4+9nj/XVSo0XtiyNqeCLmb2AOJRaowLiqhZnBZ8bqgn5j/DFVHH35a69rrzbOQroxaPqrG70S9OOsDnNspVy7WjTMPrgl/MPCa6E3GKQXPRToI7x5BQeBKT3VFp5dlzolrp7DlbLhv8zR2PiHfxTmsVhOLW39eJup+MwCFWWCpL7VfBR/80fvqdZdE7a+HiKO6ysGKpndBkVT0Sgbfpwra6yeEnmnEWSm6FC4NaW55vizizKxwSAXXmmdO32xRLQjovNwkdIgYd1/4qdfUtlwZlw636+ROILmBfjkzqrVv3KxNSWUGh9sdmZZEEtA6GgwPdb+DyrAV3drulF1b4FVbINY0kgzM5bHMBE7Fs+vmLY0zlC5xATu8NiTi2SC9uF6VTXfAzMeHpaRNNEyjaqw0uhEppIEriDrN5/CCkJ3omg834BCWdZAk3hbkVfQLeAv9E0OCCLzGAGGqQFqoIf+FoQ401aTB9/M3GlGUMD74oF/Fc0otnSzeO8oX+kzjJAIuFrGXDlI6JlZcSdBnkn1RNtAErc95ra5/DgYMSkTj4LGIY4Io4xbt3Yw4eKgcE+DbbTW+5iG3cg/HU0cHHIne50VKUHNaXOmzmuCkL25jKJDFg6GqWL0PZAjNs2Yh3y/SDwOvzRy43MhE9dIHtdFo="
+    branches:
+      - develop
+      - feature/*
   firefox: latest
   apt:
     sources:
@@ -36,3 +43,4 @@ install:
 script:
   - npm run test:e2e:all
   - npm run test:unit
+  - sonar-scanner
