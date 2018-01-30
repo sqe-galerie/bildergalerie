@@ -55,7 +55,7 @@
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
                     <a href="<?php echo $this->url("backend", "deleteExhibition", array("id" => $id)); ?>"
-                       class="confirmation"
+                       class="confirmation deleteExhibition"
                        data-confirmation-text="Soll die Ausstellung wirklich gelöscht werden?"
                        title="Ausstellung entfernen">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
