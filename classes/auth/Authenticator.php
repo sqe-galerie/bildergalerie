@@ -9,7 +9,7 @@
  * Date: 22.12.2015
  * Time: 18:16
  */
-class Authenticator implements \App\Utils\Authenticator
+class Authenticator
 {
 
     /**
@@ -74,7 +74,7 @@ class Authenticator implements \App\Utils\Authenticator
     /**
      * Gets the authenticated user.
      *
-     * @return User current user or null, iff there
+     * @return IUser current user or null, iff there
      *          is no user currently authenticated.
      */
     public function getLoggedInUser()
