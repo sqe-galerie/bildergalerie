@@ -64,7 +64,7 @@ class DeleteExhibitionTest extends TestCase
     private function setIsAuthorized()
     {
         $this->authenticatorStub
-            ->method('isAuthorized')
+            ->method('isAuthenticated')
             ->willReturn(true);
     }
 
