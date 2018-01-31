@@ -9,7 +9,7 @@
  * Date: 22.12.2015
  * Time: 18:16
  */
-class Authenticator
+class Authenticator implements \App\Utils\Authenticator
 {
 
     /**

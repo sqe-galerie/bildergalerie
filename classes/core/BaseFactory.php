@@ -6,7 +6,7 @@
  * Date: 22.12.2015
  * Time: 18:27
  */
-class BaseFactory
+class BaseFactory implements \App\Application
 {
 
     /**
@@ -81,4 +81,13 @@ class BaseFactory
     }
 
 
+    /**
+     * @return \App\Exhibition\ExhibitionBoundary
+     */
+    public function getExhibitionBoundary()
+    {
+        $exhbitionRepository = new ExhibitionRepositoryImpl(
+            $this->getDbConnection(), $this->getMandantManager()->getMandant());
+        return new \App\Exhibition\ExhibitionBoundary($this->getAuthenticator(), $exhbitionRepository);
+    }
 }

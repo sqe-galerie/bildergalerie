@@ -10,6 +10,6 @@ interface Authenticator
     /**
      * @return bool
      */
-    public function isAuthorized();
+    public function isAuthenticated();
 
 }

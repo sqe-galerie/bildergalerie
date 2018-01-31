@@ -39,7 +39,7 @@ class DeleteExhibition
      */
     public function delete(Request $request)
     {
-        if (!$this->authenticator->isAuthorized()) {
+        if (!$this->authenticator->isAuthenticated()) {
             throw new NotAuthorizedException();
         }
         if (!isset($request->id)) {
