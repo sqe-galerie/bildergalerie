@@ -97,7 +97,7 @@ class BackendController extends BildergalerieController
         $request = new \App\Exhibition\Delete\Request();
         $request->id = $catId;
 
-        $boundary = $this->baseFactory->getExhibitionBoundary();
+        $boundary = $this->application->getExhibitionBoundary();
         $boundary->deleteExhibition($request);
 
         $this->getAlertManager()->setSuccessMessage("<strong>OK:</strong> Die Ausstellung wurde entfernt.");
