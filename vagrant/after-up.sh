@@ -7,6 +7,9 @@ if [ ! -f ${VM_SYNC_FOLDER}/.env ]; then
     cp ${VM_SYNC_FOLDER}/.env.sample ${VM_SYNC_FOLDER}/.env
 fi
 
+dos2unix /vagrant_data/.env
+dos2unix /vagrant_data/vagrant/read-env.sh
+
 . ${VM_SYNC_FOLDER}/vagrant/read-env.sh
 
 MYSQL_USER=${DB_USER}
