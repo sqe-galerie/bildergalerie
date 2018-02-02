@@ -1,35 +1,24 @@
 import { Selector } from "testcafe";
 
-const createTabAusstellungen = (t) => {
+const neueAusstellungDialog = (t) => {
     return {
-        /**
-         * Check, if the exhibition with the given name is present on screen
-         * @param {*} name e.g. "Bilder 2018"
-         */
-        async checkAusstellungWirdAngezeigt(name) {
-            const text = await Selector("#exhibition_table_body").innerText;
-            await t.expect(text).contains(name)
+
+        async setCategoryName(value){
+            await t.typeText("#category_name", value);
         },
-        /**
-         * Clicks the button to create a new exhibition (which will show a dialog)
-         * @returns Promise for the Page-Object of the 'Neue Ausstellung hinzufügen'-Dialog
-         */
-        async clickNeueAustellung() {
-            await t.click("button.open_category_dialog");
-            return {
-                async setTitel(value) {
-                    await t.typeText("#category_name", value);
-                },
-                async setBeschreibung(value) {
-                    await t.typeText("#category_description", value);
-                },
-                async clickAnlegen() {
-                    await t.click("#dialog-save-ausstellung-btn");
-                },
-                async clickAbbrechen() {
-                    throw new Error("nicht implementiert");
-                }
-            }
+        async checkCategoryName(value){
+            const category_name = await Selector("#category_name").value;
+            await t.expect(category_name).contains(value);
+        },
+        async setCategoryDescription(value){
+            await t.typeText("#category_description", value);
+        },
+        async checkCategoryDescription(value){
+            const category_description = await Selector("#category_description").value;
+            await t.expect(category_description).contains(value);
+        },
+        async clickAusstellungAnlegenBtn(){
+            await t.click("#dialog-save-ausstellung-btn");
         }
     }
 };
@@ -44,6 +33,33 @@ export default function (t) {
             await t
                 .click("#nav_pictures > a")
                 .click("#nav_pictures_create > a")
+                return {
+                    async setTitle(value) {
+                        await t.typeText("#title", value);
+                    },
+                    async checkTitle(value) {
+                        const title = await Selector("#title").value;
+                        await t.expect(title).eql(value);
+                    },
+                    async setMaterial(value) {
+                        await t.typeText("#material", value);
+                    },
+                    async checkMaterial(value) {
+                        const material = await Selector("#material").value;
+                        await t.expect(material).contains(value);
+                    },
+                    async setDescription(value) {
+                        await t.typeText("#description", value);
+                    },
+                    async checkDescription(value) {
+                        const description = await Selector("#description").value;
+                        await t.expect(description).contains(value);
+                    },
+                    async neueAusstellungAnlegen(){
+                        await t.click("#btn_neue_ausstellung");
+                        return neueAusstellungDialog(t);
+                    }
+                }
         }
     };
 };
