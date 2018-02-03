@@ -21,7 +21,7 @@ fixture("create picture form")
     });
 
 
-test.only('upload new picture via create form', async t => {
+test('upload new picture via create form', async t => {
     let page = await PagePictureCreate(t).navigateGemaeldeHinzufuegenNavbar();
     await page.setTitle("Ein neues Gemälde");
     await page.checkTitle("Ein neues Gemälde");
