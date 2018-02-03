@@ -4,6 +4,8 @@ import { SERVER_URL } from "../config";
 import { DEMO_USER, GUEST } from "../roles";
 import PagePictureCreate from "../page-objects/PagePictureCreate";
 import { resetDB, resetUploads } from "../../util/testUtils";
+const fs = require('fs-extra');
+const path = require('path');
 
 fixture("create picture form")
     .page(SERVER_URL)
@@ -11,7 +13,7 @@ fixture("create picture form")
         resetDB();
         resetUploads();
     })
-    .beforeEach(async t => {;
+    .beforeEach(async t => {
         await t.useRole(DEMO_USER);
     })
     .afterEach(async t => {
@@ -19,7 +21,7 @@ fixture("create picture form")
     });
 
 
-test('upload new picture via create form', async t => {
+test.only('upload new picture via create form', async t => {
     let page = await PagePictureCreate(t).navigateGemaeldeHinzufuegenNavbar();
     await page.setTitle("Ein neues Gemälde");
     await page.checkTitle("Ein neues Gemälde");
@@ -37,7 +39,14 @@ test('upload new picture via create form', async t => {
     await dialog.checkCategoryDescription("Eine Beschreibung der Ausstellung");
     await dialog.clickAusstellungAnlegenBtn();
 
-    await t.setFilesToUpload("#uploadFile", "../pictures/twitter.png");
+    // create unique upload file
+    const filename = path.resolve(__dirname, `../pictures/${`twitter-${Math.random() * 100}.png`}`);
+    await fs.copy(path.resolve(__dirname, '../pictures/twitter.png'), filename);
+
+    await t.setFilesToUpload("#uploadFile", filename);
     await t.click("#add_pic_submit");
     await t.expect(Selector(".alert-success").innerText).contains("Das Bild wurde erfolgreich hinzugefügt.");
+
+    // remove the file again
+    await fs.remove(filename)
 });
