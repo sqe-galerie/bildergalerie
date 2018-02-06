@@ -7,7 +7,7 @@ FINAL_TUNNEL_LINK="localhost:9000/~jasteuer/sqe"
  
 if [ -d "../screenshots" ]; then
     for FILE in ../screenshots/*; do 
-        if [ -d "$FILE" ]; then
+        if [ -f "$FILE" ]; then
             NAME=$(basename $FILE);
             echo "uploading screenshot to: $FINAL_BASE_LINK/$NAME"; 
             echo "                         $FINAL_TUNNEL_LINK/$NAME"; 
