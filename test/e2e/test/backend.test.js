@@ -18,9 +18,7 @@ test('erstelle eine neue Ausstellung', async t => {
     let dialog = await tabAustellungen.clickNeueAustellung();
     await dialog.setTitel(uniqueName);
     await dialog.setBeschreibung("Ein paar Worte zur Ausstellung...");
-    await dialog.clickAnlegen();
-    
-    throw new Error("fehlerteufel");
+    await dialog.clickAnlegen(); 
     
     // step 3 - validate results
     await tabAustellungen.checkAusstellungWirdAngezeigt(uniqueName);
