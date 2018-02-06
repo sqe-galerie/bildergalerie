@@ -45,6 +45,4 @@ script:
   - npm run test:e2e:all
   - npm run test:unit
   - sonar-scanner
-  - mkdir screenshots
-  - touch screenshots/dummy.jpg
   - bash .travis/upload_screenshots.sh
