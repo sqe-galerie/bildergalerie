@@ -20,6 +20,8 @@ test('erstelle eine neue Ausstellung', async t => {
     await dialog.setBeschreibung("Ein paar Worte zur Ausstellung...");
     await dialog.clickAnlegen();
     
+    throw new Error("fehlerteufel");
+    
     // step 3 - validate results
     await tabAustellungen.checkAusstellungWirdAngezeigt(uniqueName);
 });
