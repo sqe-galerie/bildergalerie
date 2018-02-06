@@ -11,7 +11,7 @@ if [ -d "../screenshots" ]; then
             NAME=$(basename $FILE);
             echo "uploading screenshot to: $FINAL_BASE_LINK/$NAME"; 
             echo "                         $FINAL_TUNNEL_LINK/$NAME"; 
-            scp -i id_rsa $FILE "$TARGET_FOLDER/$NAME" 
+            scp -i id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $FILE "$TARGET_FOLDER/$NAME" 
         fi
     done
 fi
