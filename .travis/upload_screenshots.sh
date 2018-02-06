@@ -1,7 +1,7 @@
 #!/bin/bash 
 cd $( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
-TARGET_FOLDER="jasteuer@stl-s-stud.htwsaar.de:/export/home_16/jasteuer/public_html/sqe/screenshots"
+TARGET_FOLDER="jasteuer@stl-s-stud.htwsaar.de:/export/home_16/jasteuer/public_html/sqe"
 FINAL_BASE_LINK="http://www1.htwsaar.de/~jasteuer/sqe/screenshots"
 FINAL_TUNNEL_LINK="localhost:9000/~jasteuer/sqe/screenshots"
  
