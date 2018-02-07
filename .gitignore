@@ -9,3 +9,4 @@ node_modules/
 _phpunit.tests.xml
 _phpunit.coverage.xml
 .scannerwork/
+screenshots/
