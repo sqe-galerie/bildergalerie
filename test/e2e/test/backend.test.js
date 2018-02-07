@@ -33,7 +33,7 @@ test('erstelle eine neue Ausstellung', async t => {
 
     // step 2 - perform steps
     let tabAusstellungen = await createAusstellung(uniqueName, t);
-    
+
     // step 3 - validate results
     await tabAusstellungen.checkAusstellungWirdAngezeigt(uniqueName);
 });
@@ -51,4 +51,26 @@ test('loesche eine Ausstellung', async t => {
 
     // step 3 - validate results
     await tabAusstellungen.checkKeineAusstellungWirdAngezeigt(uniqueName);
+});
+
+test('update von Ausstellungs Daten', async t => {
+    // step 1 - generate values
+	const uniqueName = "Ausstellung_" + (new Date().getTime());
+
+    // step 2 - perform steps
+    await t.useRole(DEMO_USER);
+    let page = await PageBackend(t).navigateToViaNavbar();
+    let tabAustellungen = await page.tabs.chooseAusstellungen();
+    let dialog = await tabAustellungen.clickNeueAustellung();
+    await dialog.setTitel(uniqueName);
+    await dialog.setBeschreibung("Beschreibung vor Aenderung");
+    await dialog.clickAnlegen();
+	let changeDialog = await tabAustellungen.clickEditAusstellung(uniqueName);
+	await changeDialog.setTitel(uniqueName + '_changed');
+	await dialog.setBeschreibung("Beschreibung nach Aenderung");
+	await dialog.clickAnlegen();
+
+
+    // step 3 - validate results
+    await tabAustellungen.checkAusstellungWirdAngezeigt(uniqueName + '_changed');
 });

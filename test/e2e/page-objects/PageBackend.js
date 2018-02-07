@@ -45,7 +45,30 @@ const createTabAusstellungen = (t) => {
                     throw new Error("nicht implementiert");
                 }
             }
-        }
+        },
+			/**
+			 * Open edit page of the exhibiton with the given name
+			 * @param name of the exhibition
+			 */ 
+			async clickEditAusstellung(name){
+				const tableSelect = await Selector("#exhibition_table_body");
+				const row = await tableSelect.find('tr').withText(name).find(".glyphicon.glyphicon-pencil"); 
+				await t.click(row);
+				return {
+                async setTitel(value) {
+                    await t.typeText("#category_name", value, {replace:true});
+                },
+                async setBeschreibung(value) {
+                    await t.typeText("#category_description", value, {replace:true});
+                },
+                async clickAnlegen() {
+                    await t.click("#dialog-save-ausstellung-btn");
+                },
+                async clickAbbrechen() {
+                    throw new Error("nicht implementiert");
+                }
+            }
+		}
     }
 };
 
