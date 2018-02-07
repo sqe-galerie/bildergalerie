@@ -40,6 +40,6 @@ install:
   - php -S 0.0.0.0:8888 -t ./ >& /dev/null &
 
 script:
-  - npm run test:e2e:all
+  - npm run test:e2e
   - npm run test:unit
   - sonar-scanner
