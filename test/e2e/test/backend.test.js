@@ -29,7 +29,7 @@ test('erstelle eine neue Ausstellung', async t => {
     resetDB();
 
     // step 1 - generate values
-    const uniqueName = "Ausstellung_" + (new Date().getTime());
+    const uniqueName = "Ausstellung_erstelle_Ausstellung";
 
     // step 2 - perform steps
     let tabAusstellungen = await createAusstellung(uniqueName, t);
@@ -43,12 +43,12 @@ test('loesche eine Ausstellung', async t => {
     resetDB();
 
     // step 1 - generate values
-    const uniqueName = "Ausstellung_" + (new Date().getTime());
+    const uniqueName = "Ausstellung_loesche_Ausstellung";
 
     // step 2 - perform steps
     let tabAusstellungen = await createAusstellung(uniqueName, t);
     await tabAusstellungen.deleteAusstellung();
 
     // step 3 - validate results
-    await tabAusstellungen.checkAusstellungWirdNichtAngezeigt(uniqueName);
+    await tabAusstellungen.checkKeineAusstellungWirdAngezeigt(uniqueName);
 });

@@ -14,7 +14,7 @@ const createTabAusstellungen = (t) => {
          * Check if the exhibition with the given name is not present on screen
          * @param {*} name the name of the exhibition
          */
-        async checkAusstellungWirdNichtAngezeigt(name) {
+        async checkKeineAusstellungWirdAngezeigt(name) {
             const tableExists = await Selector("#exhibition_table_body").exists;
             await t.expect(tableExists).notOk();
         },
