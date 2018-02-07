@@ -8,13 +8,28 @@ const createTabAusstellungen = (t) => {
          */
         async checkAusstellungWirdAngezeigt(name) {
             const text = await Selector("#exhibition_table_body").innerText;
-            await t.expect(text).contains(name)
+            await t.expect(text).contains(name);
         },
-            /**
-             * Clicks the button to create a new exhibition (which will show a dialog)
-             * @returns Promise for the Page-Object of the 'Neue Ausstellung hinzufügen'-Dialog
-             */
-            async clickNeueAustellung() {
+        /**
+         * Check if the exhibition with the given name is not present on screen
+         * @param {*} name the name of the exhibition
+         */
+        async checkKeineAusstellungWirdAngezeigt(name) {
+            const tableExists = await Selector("#exhibition_table_body").exists;
+            await t.expect(tableExists).notOk();
+        },
+        /**
+         * Clicks the button to delete a exhibition
+         */
+        async deleteAusstellung() {
+            await t.setNativeDialogHandler(() => true)
+                .click(".deleteExhibition");
+        },
+        /**
+         * Clicks the button to create a new exhibition (which will show a dialog)
+         * @returns Promise for the Page-Object of the 'Neue Ausstellung hinzufügen'-Dialog
+         */
+        async clickNeueAustellung() {
             await t.click("button.open_category_dialog");
             return {
                 async setTitel(value) {
