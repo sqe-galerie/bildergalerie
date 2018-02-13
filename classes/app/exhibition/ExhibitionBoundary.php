@@ -29,6 +29,15 @@ class ExhibitionBoundary
     public function deleteExhibition(Delete\Request $request)
     {
         $deleteExhibition = new Delete\DeleteExhibition($this->authenticator, $this->exhibitionRepository);
-        $deleteExhibition->delete($request);
+        $deleteExhibition->delete($request); 
+    }
+
+    /**
+     * @return id of exhibition
+     */
+    public function createOrUpate(CreateOrUpdate\Request $request)
+    {
+        $handler = new CreateOrUpdate\CreateOrUpdateExhibition($this->authenticator, $this->exhibitionRepository);
+        return $handler->createOrUpdate($request); 
     }
 }
