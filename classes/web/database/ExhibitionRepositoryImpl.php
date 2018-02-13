@@ -19,10 +19,21 @@ class ExhibitionRepositoryImpl implements \App\Exhibition\ExhibitionRepository
     /**
      * @param $id
      * @return void
+     * @throws Exception
+     * @throws SimpleUserErrorException
      */
     public function deleteExhibitionById($id)
     {
         $this->dao->deleteCateogry($id);
     }
 
+    /**
+     * @param $mandant
+     * @param $limit
+     * @return mixed
+     */
+    public function listAllExhibitions($mandant, $limit)
+    {
+        return $this->dao->getCategoryTeasers($limit);
+    }
 }

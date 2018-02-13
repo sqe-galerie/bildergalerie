@@ -13,4 +13,11 @@ interface ExhibitionRepository
      */
     public function deleteExhibitionById($id);
 
+    /**
+     * @param $mandant
+     * @param $limit
+     * @return mixed
+     */
+    public function listAllExhibitions($mandant, $limit);
+
 }

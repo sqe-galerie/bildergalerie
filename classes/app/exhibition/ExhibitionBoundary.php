@@ -31,4 +31,13 @@ class ExhibitionBoundary
         $deleteExhibition = new Delete\DeleteExhibition($this->authenticator, $this->exhibitionRepository);
         $deleteExhibition->delete($request);
     }
+
+    public function listAllExhibitions(ListAll\Request $request)
+    {
+        $listAllExhibition = new ListAll\ListAllExhibitions($this->exhibitionRepository);
+        $reponse = new ListAll\Response();
+        $reponse->exhibitions = $listAllExhibition->listAll($request);
+
+        return $reponse;
+    }
 }
