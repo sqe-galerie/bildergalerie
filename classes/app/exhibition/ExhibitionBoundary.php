@@ -33,11 +33,13 @@ class ExhibitionBoundary
     }
 
     /**
-     * @return id of exhibition
+     * @return Response
      */
     public function createOrUpate(CreateOrUpdate\Request $request)
     {
         $handler = new CreateOrUpdate\CreateOrUpdateExhibition($this->authenticator, $this->exhibitionRepository);
-        return $handler->createOrUpdate($request); 
+        $response = $handler->createOrUpdate($request); 
+        return $response;
     }
+    
 }

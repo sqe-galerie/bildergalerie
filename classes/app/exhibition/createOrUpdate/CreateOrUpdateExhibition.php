@@ -36,7 +36,7 @@ class CreateOrUpdateExhibition
      * @param Request $request
      * @throws InvalidArgumentException
      * @throws NotAuthorizedException
-     * @return id of exhibition
+     * @return Response  
      */
     public function createOrUpdate(Request $request)
     {
@@ -49,7 +49,10 @@ class CreateOrUpdateExhibition
         if (!isset($request->description)) {
             throw new InvalidArgumentException("Exhibition description required");
         } 
-        return $this->exhibitionRepository->createOrUpdateExhibition($request->id, $request->name, $request->description);
+        $id = $this->exhibitionRepository->createOrUpdateExhibition($request->id, $request->name, $request->description);
+        $response = new Response();
+        $response->id = $id;
+        return $response;
     }
 
 }

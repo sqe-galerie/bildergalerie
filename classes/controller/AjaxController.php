@@ -154,13 +154,13 @@ class AjaxController extends BildergalerieController
          
         // do some work
         $boundary = $this->application->getExhibitionBoundary();
-        $catId = $boundary->createOrUpate($request);
+        $response = $boundary->createOrUpate($request); 
 
         // result to json
         $resultArray = array(
             "status"    => "OK"
         );
-        $resultArray["category_id"] = $catId;
+        $resultArray["category_id"] = $response->id;
         $resultArray["category_name"] = $request->name;
         $resultArray["category_description"] = $request->description;
 
