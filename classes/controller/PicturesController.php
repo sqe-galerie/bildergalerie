@@ -87,7 +87,13 @@ class PicturesController extends BildergalerieController
             //throw new SimpleUserErrorException("Die Ausstellung wurde nicht gefunden.");
             $exhibitionId = -1; // -1 stands for the special exhibition containing all pictures.
         } else {
-            $exhibition = $this->categoryDAO->getCategoryById($exhibitionId);
+            echo $exhibitionId;
+            $request = new \App\Exhibition\Get\Request();
+            $request->id = $exhibitionId;
+
+            $boundary = $this->application->getExhibitionBoundary();
+            $response = $boundary->getExhibition($request);
+            $exhibition = $response->exhibition;
         }
 
         $pictures = $this->pictureDAO->getPicturesFromCategory($exhibitionId);

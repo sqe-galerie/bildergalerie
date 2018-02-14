@@ -36,4 +36,13 @@ class ExhibitionRepositoryImpl implements \App\Exhibition\ExhibitionRepository
     {
         return $this->dao->getCategoryTeasers($limit);
     }
+
+    /**
+     * @param $id
+     * @return Category
+     */
+    public function getExhibition($id)
+    {
+        return $this->dao->getCategoryById($id);
+    }
 }

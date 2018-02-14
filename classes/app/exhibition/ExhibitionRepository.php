@@ -20,4 +20,10 @@ interface ExhibitionRepository
      */
     public function listAllExhibitions($mandant, $limit);
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getExhibition($id);
+
 }

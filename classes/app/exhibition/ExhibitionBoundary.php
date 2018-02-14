@@ -35,9 +35,18 @@ class ExhibitionBoundary
     public function listAllExhibitions(ListAll\Request $request)
     {
         $listAllExhibition = new ListAll\ListAllExhibitions($this->exhibitionRepository);
-        $reponse = new ListAll\Response();
-        $reponse->exhibitions = $listAllExhibition->listAll($request);
+        $response = new ListAll\Response();
+        $response->exhibitions = $listAllExhibition->listAll($request);
 
-        return $reponse;
+        return $response;
+    }
+
+    public function getExhibition(Get\Request $request)
+    {
+        $getExhibition = new Get\GetExhibition($this->exhibitionRepository);
+        $response = new Get\Response();
+        $response->exhibition = $getExhibition->get($request);
+
+        return $response;
     }
 }

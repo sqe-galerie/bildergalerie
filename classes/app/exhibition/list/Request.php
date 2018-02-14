@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Exhibition\ListAll;
 
 class Request
