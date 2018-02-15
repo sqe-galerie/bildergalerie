@@ -12,4 +12,6 @@ interface Application
      */
     public function getExhibitionBoundary();
 
+    public function getPictureBoundary();
+
 }

@@ -49,4 +49,13 @@ class WebApplication implements App\Application
         );
         return new \App\Exhibition\ExhibitionBoundary($this->getAppAuthenticator(), $exhbitionRepository);
     }
+
+    public function getPictureBoundary()
+    {
+        $pictureRepository = new PictureRepositoryImpl(
+            $this->legacyBaseFactory->getDbConnection(),
+            $this->legacyBaseFactory->getMandantManager()->getMandant()
+        );
+        return new \App\Picture\PictureBoundary($this->getAppAuthenticator(), $pictureRepository);
+    }
 }

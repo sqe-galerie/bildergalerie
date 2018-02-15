@@ -259,7 +259,6 @@ class PicturesController extends BildergalerieController
 
         $post = $this->getRequest()->getPostParam();
         $uploadedBy = $this->baseFactory->getAuthenticator()->getLoggedInUser();
-        $owner = $uploadedBy;
 
         $title = self::getValueOrNull("title", $post);
         $tags = self::getValueOrNull("tags", $post);
@@ -270,27 +269,22 @@ class PicturesController extends BildergalerieController
         $picPathThumb = self::getValueOrNull("uploadFile_thumbPath", $post);
         $category = self::getValueOrNull("category", $post);
 
-        $success = false;
-        $picture = null;
-        try {
-            $picture = new Picture($this->mandant, /* null, iff create-new-pic-Mode */ $editPicId, $title, $descr, null, $material, null, null, null, $picPathId, null, null, $uploadedBy, $owner, null, $tags);
-            $picture->getPath()->setPath($picPath)->setThumbPath($picPathThumb);
-            $picture->addCategories($category);
-            $picture->validate();
-            // store/update the new picture in the database
-            if ($edit) {
-                $this->pictureDAO->updatePicture($picture);
-            } else {
-                $this->pictureDAO->createPicture($picture);
-            }
-            $success = true;
-        } catch (UserException $e) {
-            $this->getAlertManager()->setErrorMessage("<strong>Fehler!</strong> " . $e->getMessage());
-            // TODO: Set form values from request!
-            if (null != $picture) {
-                $this->currentPicture = $picture;
-            }
-        }
+        $request = new \App\Picture\Create\Request();
+        $request->title = $title;
+        $request->tags = $tags;
+        $request->descr = $descr;
+        $request->material = $material;
+        $request->picPathId = $picPathId;
+        $request->picPath = $picPath;
+        $request->picPathThumb = $picPathThumb;
+        $request->category = $category;
+        $request->mandant = $this->mandant;
+        $request->uploadedBy = $uploadedBy;
+        $request->owner = $uploadedBy;
+        $request->edit = $edit;
+        $request->editPicId = $editPicId;
+        $boundary = $this->application->getPictureBoundary();
+        $success = $boundary->createPicture($request);
 
         if ($success) {
             $successMsg = ($edit)
