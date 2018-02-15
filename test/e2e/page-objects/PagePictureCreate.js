@@ -58,6 +58,15 @@ export default function (t) {
                     async neueAusstellungAnlegen(){
                         await t.click("#btn_neue_ausstellung");
                         return neueAusstellungDialog(t);
+                    },
+                    async setFilesToUpload(filename){
+                        await t.setFilesToUpload("#uploadFile",filename);
+                    },
+                    async clickAddPicSubmit(){
+                        await t.click("#add_pic_submit");
+                    },
+                    async checkAlertSuccess(value){
+                        await t.expect(Selector(".alert-success"). innerText).contains(value);
                     }
                 }
         }

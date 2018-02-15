@@ -43,9 +43,9 @@ test('upload new picture via create form', async t => {
     const filename = path.resolve(__dirname, `../pictures/${`twitter-${Math.random() * 100}.png`}`);
     await fs.copy(path.resolve(__dirname, '../pictures/twitter.png'), filename);
 
-    await t.setFilesToUpload("#uploadFile", filename);
-    await t.click("#add_pic_submit");
-    await t.expect(Selector(".alert-success").innerText).contains("Das Bild wurde erfolgreich hinzugefügt.");
+    await page.setFilesToUpload(filename);
+    await page.clickAddPicSubmit();
+    await page.checkAlertSuccess("Das Bild wurde erfolgreich hinzugefügt.");
 
     // remove the file again
     await fs.remove(filename)
