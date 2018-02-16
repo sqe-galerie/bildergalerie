@@ -21,4 +21,16 @@ interface ExhibitionRepository
      */
     public function createOrUpdateExhibition($id, $name, $description);
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getExhibition($id);
+
+    /**
+     * @param $mandant
+     * @param $limit
+     * @return mixed
+     */
+    public function listAllExhibitions($mandant, $limit);
 }
