@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Exhibition;
+namespace App\Exhibition; 
 
 
 interface ExhibitionRepository
@@ -13,12 +13,13 @@ interface ExhibitionRepository
      */
     public function deleteExhibitionById($id);
 
-    /**
-     * @param $mandant
-     * @param $limit
-     * @return mixed
+    /** 
+     * @param $id null for create operation, value for update operation
+     * @param $name 
+     * @param $description 
+     * @return id of the exhibition
      */
-    public function listAllExhibitions($mandant, $limit);
+    public function createOrUpdateExhibition($id, $name, $description);
 
     /**
      * @param $id
@@ -26,4 +27,10 @@ interface ExhibitionRepository
      */
     public function getExhibition($id);
 
+    /**
+     * @param $mandant
+     * @param $limit
+     * @return mixed
+     */
+    public function listAllExhibitions($mandant, $limit);
 }

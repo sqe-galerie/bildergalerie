@@ -1,4 +1,6 @@
 <?php
+ 
+  
 
 /**
  *
@@ -134,46 +136,35 @@ class AjaxController extends BildergalerieController
      */
     public function addCategoryAction()
     {
+        $get = $this->getRequest()->getGetParam(); 
+
+        // create request object
+        $request = new \App\Exhibition\CreateOrUpdate\Request(); 
+        $request->id = self::getValueOrNull("editId", $get);  
+        if (array_key_exists("name", $get)) {
+            $request->name = $get["name"];
+        } else {
+            throw new InvalidArgumentException("Parameter name missing.");
+        } 
+        if (array_key_exists("description", $get)) {
+            $request->description = $get["description"];
+        } else {
+            throw new InvalidArgumentException("Parameter description missing.");
+        }
+         
+        // do some work
+        $boundary = $this->application->getExhibitionBoundary();
+        $response = $boundary->createOrUpate($request); 
+
+        // result to json
         $resultArray = array(
             "status"    => "OK"
         );
+        $resultArray["category_id"] = $response->id;
+        $resultArray["category_name"] = $request->name;
+        $resultArray["category_description"] = $request->description;
 
-        $get = $this->getRequest()->getGetParam();
-        $descr = null;
-        $editId = null;
-        if (array_key_exists("name", $get)) {
-            $name = $get["name"];
-        } else {
-            throw new InvalidArgumentException("Parameter name missing.");
-        }
-        if (array_key_exists("description", $get)) {
-            $descr = $get["description"];
-        }
-
-        if (array_key_exists("editId", $get)) {
-            $editId = $get["editId"];
-        }
-
-        $category = new Category($this->mandant, $editId, $name, $descr); // editId == null if we should create a new one
-
-        $categoryDAO = new CategoryDAO($this->baseFactory->getDbConnection(), $this->mandant);
-
-        if (null != $editId) {
-            $result = $categoryDAO->updateCategory($category);
-            // TODO: what shall we do with the result ?!
-            $catId = $editId;
-        } else {
-            $catId = $categoryDAO->createCategory($category);
-        }
-        if ($catId == false) {
-            return array("status" => "ERR", "errMsg" => "Kategorie konnte nicht angelegt werden");
-        }
-
-        $resultArray["category_id"] = $catId;
-        $resultArray["category_name"] = $name;
-        $resultArray["category_description"] = $descr;
-
-        return json_encode($resultArray);
+        return json_encode($resultArray); 
     }
 
     /**

@@ -2,7 +2,7 @@
 
 
 class WebApplication implements App\Application
-{
+{ 
 
     /**
      * Reveals access to the legacy application core.

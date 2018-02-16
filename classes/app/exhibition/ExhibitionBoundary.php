@@ -57,4 +57,18 @@ class ExhibitionBoundary
 
         return $response;
     }
+
+    /**
+     * @param CreateOrUpdate\Request $request
+     * @return CreateOrUpdate\Response
+     * @throws \App\Utils\InvalidArgumentException
+     * @throws \App\Utils\NotAuthorizedException
+     */
+    public function createOrUpate(CreateOrUpdate\Request $request)
+    {
+        $handler = new CreateOrUpdate\CreateOrUpdateExhibition($this->authenticator, $this->exhibitionRepository);
+        $response = $handler->createOrUpdate($request);
+        return $response;
+    }
+
 }

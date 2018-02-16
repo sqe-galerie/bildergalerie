@@ -58,6 +58,7 @@ class PicturesController extends BildergalerieController
      * Shows all exhibitions.
      *
      * @return BootstrapView
+     * @throws \App\Utils\InvalidArgumentException
      */
     public function exhibitionsAction()
     {
@@ -87,7 +88,6 @@ class PicturesController extends BildergalerieController
             //throw new SimpleUserErrorException("Die Ausstellung wurde nicht gefunden.");
             $exhibitionId = -1; // -1 stands for the special exhibition containing all pictures.
         } else {
-            echo $exhibitionId;
             $request = new \App\Exhibition\Get\Request();
             $request->id = $exhibitionId;
 
