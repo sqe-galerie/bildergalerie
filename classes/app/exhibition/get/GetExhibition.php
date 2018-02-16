@@ -23,7 +23,7 @@ class GetExhibition
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return Response
      * @throws InvalidArgumentException
      */
     public function get(Request $request)
@@ -32,6 +32,9 @@ class GetExhibition
             throw new InvalidArgumentException("Exhibition id required");
         }
 
-        return $this->exhibitionRepository->getExhibition($request->id);
+        $response = new Response();
+        $response->exhibition = $this->exhibitionRepository->getExhibition($request->id);
+
+        return $response;
     }
 }

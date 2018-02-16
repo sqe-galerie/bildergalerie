@@ -22,11 +22,19 @@ class ListAllExhibitions
         $this->exhibitionRepository = $repository;
     }
 
+    /**
+     * @param $request
+     * @return Response
+     * @throws InvalidArgumentException
+     */
     public function listAll($request) {
         if (!isset($request->mandant)) {
             throw new InvalidArgumentException("Mandant id required");
         }
 
-        return $this->exhibitionRepository->listAllExhibitions($request->mandant, $request->limit);
+        $response = new Response();
+        $response->exhibitions = $this->exhibitionRepository->listAllExhibitions($request->mandant, $request->limit);
+
+        return $response;
     }
 }

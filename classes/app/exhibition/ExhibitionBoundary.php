@@ -32,20 +32,28 @@ class ExhibitionBoundary
         $deleteExhibition->delete($request);
     }
 
+    /**
+     * @param ListAll\Request $request
+     * @return ListAll\Response
+     * @throws \App\Utils\InvalidArgumentException
+     */
     public function listAllExhibitions(ListAll\Request $request)
     {
         $listAllExhibition = new ListAll\ListAllExhibitions($this->exhibitionRepository);
-        $response = new ListAll\Response();
-        $response->exhibitions = $listAllExhibition->listAll($request);
+        $response = $listAllExhibition->listAll($request);
 
         return $response;
     }
 
+    /**
+     * @param Get\Request $request
+     * @return Get\Response
+     * @throws \App\Utils\InvalidArgumentException
+     */
     public function getExhibition(Get\Request $request)
     {
         $getExhibition = new Get\GetExhibition($this->exhibitionRepository);
-        $response = new Get\Response();
-        $response->exhibition = $getExhibition->get($request);
+        $response = $getExhibition->get($request);
 
         return $response;
     }
