@@ -6,18 +6,28 @@ use App\Picture\PictureRepository;
 use App\Utils\Authenticator;
 use App\Utils\NotAuthorizedException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class CreatePictureTest extends TestCase
 {
+
+    /** @var CreatePicture */
     private $createInteractor;
 
+    /** @var Authenticator | MockObject */
     private $authenticatorStub;
 
+    /**
+     * @var PictureRepository | MockObject
+     */
     private $repositoryStub;
 
     private $userStub;
     private $mandantStub;
 
+    /**
+     * @before
+     */
     public function setupTestobject()
     {
         $this->authenticatorStub = $this->createMock(Authenticator::class);
@@ -40,8 +50,9 @@ class CreatePictureTest extends TestCase
         $this->repositoryStub
             ->expects($this->once())
             ->method('createPicture')
-            ->with($this->equalTo(new \Picture($this->mandantStub, null, "Ein Gemälde", "Eine Beschreibung", null, "Das Material", null, null, null,
-                "/uploads/1/image001.png", null, null, $this->userStub, $this->userStub, null, null)));
+            ->with($this->callback(function($picture) {
+                return $picture->getTitle() == 'Ein Gemälde';
+            }));
         $request = new Request();
         $request->title = "Ein Gemälde";
         $request->tags = null;
@@ -51,6 +62,7 @@ class CreatePictureTest extends TestCase
         $request->uploadedBy = $this->userStub;
         $request->owner = $this->userStub;
         $request->mandant = $this->mandantStub;
+        $request->categoryIds = [1];
         $this->createInteractor->create($request);
     }
 

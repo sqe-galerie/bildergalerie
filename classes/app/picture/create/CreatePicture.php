@@ -19,22 +19,25 @@ class CreatePicture
         $this->pictureRepository = $repository;
     }
 
+    /**
+     * @param Request $request
+     * @throws NotAuthorizedException
+     * @throws \IllegalStateException
+     * @throws \InvalidInputException
+     */
     public function create(Request $request)
     {
         if(!$this->authenticator->isAuthenticated()) {
             throw new NotAuthorizedException();
         }
-        $response = new Response();
-        try {
-            $picture = new \Picture($request->mandant, $request->editPicId, $request->title, $request->descr, null, $request->material, null, null, null, $request->picPathId, null, null, $request->uploadedBy, $request->owner, null, $request->tags);
-            $picture->addCategories($request->category);
-            $picture->validate();
-            $this->pictureRepository->createPicture($picture, $request->edit);
-            $response->success = true;
-        } catch (\UserException $e) {
-            $response->success = false;
-        }
-        return $response;
+        $picture = new \Picture(
+            $request->mandant, $request->editPicId, $request->title, $request->descr, null, $request->material,
+            null, null, null, $request->picPathId, null, null,
+            $request->uploadedBy, $request->owner, null, $request->tags
+        );
+        $picture->addCategories($request->categoryIds);
+        $picture->validate();
+        $this->pictureRepository->createPicture($picture, $request->edit);
 
     }
 }

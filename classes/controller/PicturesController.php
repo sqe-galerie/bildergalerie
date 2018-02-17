@@ -277,7 +277,7 @@ class PicturesController extends BildergalerieController
         $request->picPathId = $picPathId;
         $request->picPath = $picPath;
         $request->picPathThumb = $picPathThumb;
-        $request->category = $category;
+        $request->categoryIds = $category;
         $request->mandant = $this->mandant;
         $request->uploadedBy = $uploadedBy;
         $request->owner = $uploadedBy;

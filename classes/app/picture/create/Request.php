@@ -11,7 +11,10 @@ class Request
     public $picPathId;
     public $picPath;
     public $picPathThumb;
-    public $category;
+    /**
+     * @var int[]
+     */
+    public $categoryIds;
     public $mandant;
     public $uploadedBy;
     public $owner;
