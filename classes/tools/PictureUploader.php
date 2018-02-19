@@ -84,8 +84,19 @@ class PictureUploader
      */
     private function createThumbnail($thumbWidth)
     {
-        // load image and get image size
-        $img = imagecreatefromjpeg($this->uploadedFilePath);
+        // load image and get image size 
+        $extension = pathinfo(strtolower($this->uploadedFilePath))["extension"];
+        if($extension === "jpg" || $extension === "jpeg"){ 
+            $img = imagecreatefromjpeg($this->uploadedFilePath);
+        }else if($extension === "png"){
+            $img = imagecreatefrompng($this->uploadedFilePath);  
+        }else if($extension === "gif"){
+            $img = imagecreatefromgif($this->uploadedFilePath); 
+        }else{
+            $img = imagecreatefromjpeg($this->uploadedFilePath); // old behavior
+            // throw exception instead?
+        }
+        
         $width = imagesx( $img );
         $height = imagesy( $img );
 
