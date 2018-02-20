@@ -62,8 +62,8 @@ class PictureUploader
             throw new FileAlreadyExists($this->fileName);
         }
 
-        $success = move_uploaded_file($this->tmpFilePath, $this->uploadedFilePath);
-
+        $success = $this->move_uploaded_file($this->tmpFilePath, $this->uploadedFilePath);
+ 
         if ($success && $thumbWidth) {
             try {
                 $this->thumbFilePath = $this->createThumbnail($thumbWidth);
@@ -75,6 +75,11 @@ class PictureUploader
 
         return $success;
     }
+
+    function move_uploaded_file($temporary_name, $target_path)
+    {
+        return move_uploaded_file($temporary_name, $target_path);
+    } 
 
     /**
      * Creates a thumbnail of the previously uploaded image.
@@ -95,7 +100,7 @@ class PictureUploader
         }else{
             $img = imagecreatefromjpeg($this->uploadedFilePath); // old behavior
             // throw exception instead?
-        }
+        } 
         
         $width = imagesx( $img );
         $height = imagesy( $img );
