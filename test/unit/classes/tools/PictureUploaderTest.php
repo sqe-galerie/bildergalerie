@@ -22,7 +22,7 @@ class TestablePictureUploader extends PictureUploader
 class PictureUploaderTest extends TestCase {
      
 
-    private $destFolderPath = "/tmp/bildergalerie/PictureUploaderTest";
+    private $destFolderPath ;
 
     /**
      * rm -r
@@ -40,6 +40,8 @@ class PictureUploaderTest extends TestCase {
      */
     public function setup()
     {
+        $this->destFolderPath = sys_get_temp_dir() . "/bildergalerie/PictureUploaderTest";
+
         // remove tmp folder if exist
         if (is_dir($this->destFolderPath)) { 
             PictureUploaderTest::delTree($this->destFolderPath);
