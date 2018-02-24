@@ -1,8 +1,8 @@
 {
     "name" : "blefel/bildergalerie",
     "scripts": {
-        "test": "./vendor/bin/phpunit test/unit --whitelist classes --coverage-clover _phpunit.coverage.xml --log-junit _phpunit.tests.xml",
-        "test:dbunit": "./vendor/bin/phpunit test/dbunit --whitelist classes"
+        "test": "./vendor/bin/phpunit test/unit --whitelist classes --coverage-clover .coverage/_phpunit.coverage.xml --log-junit .coverage/_phpunit.tests.xml",
+        "test:dbunit": "./vendor/bin/phpunit test/dbunit --whitelist classes --coverage-clover .coverage/_dbunit.coverage.xml --log-junit .coverage/_dbunit.tests.xml"
     },
     "repositories": [
         {
