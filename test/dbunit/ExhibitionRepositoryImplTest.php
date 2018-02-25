@@ -12,6 +12,9 @@ class ExhibitionRepositoryImplTest extends DbTestCase
     /** @var \App\Exhibition\ExhibitionRepository */
     private $exhibitionRepo = null;
 
+    /** @var Mandant */
+    private $mandant = null;
+
     /**
      * @return \PHPUnit\DbUnit\DataSet\FlatXmlDataSet
      */
@@ -26,9 +29,9 @@ class ExhibitionRepositoryImplTest extends DbTestCase
     public function setupTestObject()
     {
 
-        $mandant = new Mandant(1);
+        $this->mandant = new Mandant(1);
         $galeryDbConnection = new GaleryMysql(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
-        $this->exhibitionRepo = new ExhibitionRepositoryImpl($galeryDbConnection, $mandant);
+        $this->exhibitionRepo = new ExhibitionRepositoryImpl($galeryDbConnection, $this->mandant);
     }
 
 
@@ -38,7 +41,49 @@ class ExhibitionRepositoryImplTest extends DbTestCase
 
         $this->exhibitionRepo->deleteExhibitionById(2);
 
-        $this->assertEquals(1, $this->getConnection()->getRowCount(self::TABLE), "Inserting failed");
+        $this->assertEquals(1, $this->getConnection()->getRowCount(self::TABLE), "Delete failed");
+    }
+
+    public function testCreateOrUpdateExhibitionShouldAddNewExhibition()
+    {
+        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+
+        $this->exhibitionRepo->createOrUpdateExhibition(null, "New Exhibition", "A description");
+
+        $this->assertEquals(3, $this->getConnection()->getRowCount(self::TABLE), "Inserting failed");
+    }
+
+    public function testCreateOrUpdateExhibitionShouldUpdateAnExistingExhibition()
+    {
+        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+        $this->exhibitionRepo->createOrUpdateExhibition(1, "Updated Exhibition 1", "Updated description");
+
+        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Updating failed");
+        $dataSet = $this->getConnection()->createDataSet(['galery_categories']);
+        $expectedDataSet = $this->createFlatXmlDataSet(dirname(__FILE__) . '/fixtures/exhibition-expected-update.xml');
+        $this->assertDataSetsEqual($expectedDataSet, $dataSet);
+    }
+
+    public function testCreateOrUpdateExhibitionShouldThrow()
+    {
+        $this->expectException("Exception");
+        $this->exhibitionRepo->createOrUpdateExhibition(null, null, null);
+    }
+
+    public function testListAllShouldReturnBothExhibitions()
+    {
+        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+
+        $exhibitions = $this->exhibitionRepo->listAllExhibitions($this->mandant, 2);
+        $this->assertEquals(2, count($exhibitions), "Query failed");
+    }
+
+    public function testListAllShouldReturnOnlyOneExhibitions()
+    {
+        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+
+        $exhibitions = $this->exhibitionRepo->listAllExhibitions($this->mandant, 1);
+        $this->assertEquals(1, count($exhibitions), "Query failed");
     }
 
     public function testGetShouldReturnTheDesiredExhibition()
