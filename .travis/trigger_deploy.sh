@@ -5,4 +5,4 @@ if [ ${TRAVIS_BRANCH} != "feature/setup-cd" ]; then
     exit
 fi
 
-curl "http://localhost:4326/?token=${deploy_token}"
+curl "http://deploy.hildes-bildergalerie.de/?token=${deploy_token}"
