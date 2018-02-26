@@ -45,8 +45,12 @@ install:
 script:
   - npm run test:e2e
   - npm run test:unit
-  - sonar-scanner
-  - bash .travis/upload_screenshots.sh
+  - npm run test:dbunit
 
 after_success:
+  - npm run merge-test-reports
+  - sonar-scanner
   - .travis/trigger_deploy.sh
+
+after_script:
+  - bash .travis/upload_screenshots.sh

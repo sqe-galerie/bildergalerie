@@ -32,14 +32,15 @@ class ExhibitionRepositoryImpl implements \App\Exhibition\ExhibitionRepository
  
     public function createOrUpdateExhibition($id, $name, $description)
     { 
-        $category = new Category($this->mandant, $id, $name, $description ); 
-        if (null != $id) {
-            $this->dao->updateCategory($category); 
-            $catId = $id;
-        } else {
-            $catId = $this->dao->createCategory($category); 
-        } 
-        if ($catId  == false) { 
+        $category = new Category($this->mandant, $id, $name, $description );
+        try {
+            if (null != $id) {
+                $this->dao->updateCategory($category);
+                $catId = $id;
+            } else {
+                $catId = $this->dao->createCategory($category);
+            }
+        } catch(\Simplon\Mysql\MysqlException $e) {
             throw new Exception("Kategorie konnte nicht angelegt oder aktualisiert werden");
         }
         return $catId ;
