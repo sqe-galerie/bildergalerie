@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-if [ ${TRAVIS_BRANCH} != "feature/setup-cd" ]; then
+if [ ${TRAVIS_BRANCH} != "develop" ]; then
     exit
 fi
 
-echo "http://deploy.hildes-bildergalerie.de/?token=${deploy_token}"
+curl "http://deploy.hildes-bildergalerie.de/?token=${deploy_token}"
