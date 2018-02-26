@@ -37,7 +37,7 @@ class ExhibitionRepositoryImplTest extends DbTestCase
 
     public function testDeleteShouldRemoveOneEntry()
     {
-        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+        $this->checkPrecondition();
 
         $this->exhibitionRepo->deleteExhibitionById(2);
 
@@ -46,7 +46,7 @@ class ExhibitionRepositoryImplTest extends DbTestCase
 
     public function testCreateOrUpdateExhibitionShouldAddNewExhibition()
     {
-        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+        $this->checkPrecondition();
 
         $this->exhibitionRepo->createOrUpdateExhibition(null, "New Exhibition", "A description");
 
@@ -55,7 +55,7 @@ class ExhibitionRepositoryImplTest extends DbTestCase
 
     public function testCreateOrUpdateExhibitionShouldUpdateAnExistingExhibition()
     {
-        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+        $this->checkPrecondition();
         $this->exhibitionRepo->createOrUpdateExhibition(1, "Updated Exhibition 1", "Updated description");
 
         $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Updating failed");
@@ -72,7 +72,7 @@ class ExhibitionRepositoryImplTest extends DbTestCase
 
     public function testListAllShouldReturnBothExhibitions()
     {
-        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+        $this->checkPrecondition();
 
         $exhibitions = $this->exhibitionRepo->listAllExhibitions($this->mandant, 2);
         $this->assertEquals(2, count($exhibitions), "Query failed");
@@ -80,7 +80,7 @@ class ExhibitionRepositoryImplTest extends DbTestCase
 
     public function testListAllShouldReturnOnlyOneExhibitions()
     {
-        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
+        $this->checkPrecondition();
 
         $exhibitions = $this->exhibitionRepo->listAllExhibitions($this->mandant, 1);
         $this->assertEquals(1, count($exhibitions), "Query failed");
@@ -88,11 +88,15 @@ class ExhibitionRepositoryImplTest extends DbTestCase
 
     public function testGetShouldReturnTheDesiredExhibition()
     {
-        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
-
+        $this->checkPrecondition();
         /** @var Category $exhibition */
         $exhibition = $this->exhibitionRepo->getExhibition(1);
         $this->assertEquals('Ausstellung 1', $exhibition->getCategoryName());
+    }
+
+    private function checkPrecondition()
+    {
+        $this->assertEquals(2, $this->getConnection()->getRowCount(self::TABLE), "Pre-Condition");
     }
 
 
