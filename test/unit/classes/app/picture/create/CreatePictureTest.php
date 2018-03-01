@@ -84,7 +84,7 @@ class CreatePictureTest extends TestCase
 
     }
 
-    public function testShouldThrowIfPathIsNull()
+    /**public function testShouldThrowIfPathIsNull()
     {
         $this->setIsAuthorized();
         $this->expectException(\InvalidInputException::class);
@@ -98,8 +98,8 @@ class CreatePictureTest extends TestCase
         $request->mandant = $this->mandantStub;
         $request->categoryIds = [1];
         $this->createInteractor->create($request);
-    }
-   /** public function testShouldThrowIfMandantIsNull()
+    }**/
+    /**public function testShouldThrowIfMandantIsNull()
     {
         $this->expectException(\IllegalStateException::class);
         $this->setIsAuthorized();
