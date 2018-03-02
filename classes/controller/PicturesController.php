@@ -293,19 +293,17 @@ class PicturesController extends BildergalerieController
         $request->edit = $edit;
         $request->editPicId = $editPicId;
         $boundary = $this->application->getPictureBoundary();
-        $success = $boundary->createPicture($request);
+        $boundary->createPicture($request);
 
-        if ($success) {
-            $successMsg = ($edit)
-                ? "Die Änderungen wurden erfolgreich gespeichert."
-                : "Das Bild wurde erfolgreich hinzugefügt.";
-            $this->getAlertManager()->setSuccessMessage("<strong>Super!</strong> $successMsg");
-            // redirect so the user can reload the page without sending the form again.
-            if ($edit) {
-                $this->getRouter()->reLocateTo("pictures", "pic", array("id" => $editPicId));
-            } else {
-                $this->getRouter()->reLocateTo("pictures", "create");
-            }
+        $successMsg = ($edit)
+            ? "Die Änderungen wurden erfolgreich gespeichert."
+            : "Das Bild wurde erfolgreich hinzugefügt.";
+        $this->getAlertManager()->setSuccessMessage("<strong>Super!</strong> $successMsg");
+        // redirect so the user can reload the page without sending the form again.
+        if ($edit) {
+            $this->getRouter()->reLocateTo("pictures", "pic", array("id" => $editPicId));
+        } else {
+            $this->getRouter()->reLocateTo("pictures", "create");
         }
     }
 

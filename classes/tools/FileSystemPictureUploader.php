@@ -37,6 +37,9 @@ class FileSystemPictureUploader implements \App\Picture\PictureUploader
 
     public function __construct($destFolderPath)
     {
+        if(!is_dir($destFolderPath)){
+            mkdir($destFolderPath);
+        }
         $this->destFolderPath = $destFolderPath;
     }
 

@@ -55,6 +55,7 @@ class WebApplication implements App\Application
         $mandant = $this->legacyBaseFactory->getMandantManager()->getMandant();
         $pictureRepository = new PictureRepositoryImpl($this->legacyBaseFactory->getDbConnection(), $mandant);
         $dirName = "uploads/" . $mandant->getMandantId();
+
         $picUploader = new FileSystemPictureUploader($dirName);
         return new \App\Picture\PictureBoundary($this->getAppAuthenticator(), $pictureRepository, $picUploader);
     }
