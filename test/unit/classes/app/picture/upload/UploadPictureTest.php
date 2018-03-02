@@ -30,6 +30,11 @@ class UploadPictureTest extends TestCase
      */
     private $picturerUploaderStub;
 
+    private $dummyFile = array(
+        "tmp_name" => "test/unit/classes/app/picture/upload/twitter.png",
+        "name" => "twitter"
+    );
+
     /**
      * @before
      */
@@ -44,24 +49,118 @@ class UploadPictureTest extends TestCase
 
     public function testShouldCallUploadPictureMethodOfRepository()
     {
-        $file = array(
-            "tmp_name" => "test/unit/classes/app/picture/upload/twitter.png",
-            "name" => "twitter"
-        );
-        $dir = "upload";
-        $this->picturerUploaderStub
-            ->method('uploadFile')
-            ->willReturn(true);
+        $this->setReturnValueForFileUpload();
         $this->repositoryStub
             ->expects($this->once())
-            ->method('uploadPicture');
+            ->method('savePicturePath');
+
+        $this->uploadInteractor->upload($this->createRequest());
+    }
+
+    public function testShouldCallUploadFileMethodOfPictureUploaderWithTheGivenFile()
+    {
+        $this->setReturnValueForFileUpload();
+        $this->picturerUploaderStub
+            ->expects($this->once())
+            ->method('uploadFile')
+            ->with($this->equalTo($this->dummyFile));
+
+        $this->uploadInteractor->upload($this->createRequest());
+    }
+
+    public function testShouldDeleteTheUploadedPictureAgainIfThePathCouldNotBeSaved()
+    {
+        $this->setReturnValueForFileUpload();
+        $this->setReturnValueForSavePicturePath(false);
+
+        $this->picturerUploaderStub
+            ->expects($this->once())
+            ->method('deleteUploadedFiles');
+
+        $this->uploadInteractor->upload($this->createRequest());
+    }
+
+    public function testShouldReturnTrueIfUploadAndSaveWasSuccessful()
+    {
+        $this->setReturnValueForFileUpload();
+        $this->setReturnValueForSavePicturePath();
+        $response = $this->uploadInteractor->upload($this->createRequest());
+        $this->assertEquals(true, $response->success);
+    }
+
+    public function testShouldReturnFalseIfThePathCouldNotBeSaved()
+    {
+        $this->setReturnValueForFileUpload();
+        $this->setReturnValueForSavePicturePath(false);
+
+        $response = $this->uploadInteractor->upload($this->createRequest());
+        $this->assertEquals(false, $response->success);
+    }
+
+    public function testShouldReturnFalseIfTheFileUploadWasNotSuccessful()
+    {
+        $this->setReturnValueForFileUpload(false);
+        $this->picturerUploaderStub
+            ->method('uploadFile')
+            ->willReturn(false);
+        $response = $this->uploadInteractor->upload($this->createRequest());
+        $this->assertEquals(false, $response->success);
+    }
+
+    public function testShouldReturnThePicturePathId()
+    {
+        $this->setReturnValueForFileUpload();
+        $picPathId = 5;
+        $this->setReturnValueForSavePicturePath($picPathId);
+        $response = $this->uploadInteractor->upload($this->createRequest());
+        $this->assertEquals($picPathId, $response->picPathId);
+    }
+
+    public function testShouldReturnThePicturePath()
+    {
+        $this->setReturnValueForFileUpload();
+        $dummyFilePath = 'filePath';
+        $this->picturerUploaderStub
+            ->method('getUploadedFilePath')
+            ->willReturn($dummyFilePath);
+        $this->setReturnValueForSavePicturePath();
+        $response = $this->uploadInteractor->upload($this->createRequest());
+        $this->assertEquals($dummyFilePath, $response->filePath);
+    }
+
+    public function testShouldReturnTheThumbnailPath()
+    {
+        $this->setReturnValueForFileUpload();
+        $dummyThumbFilePath = 'thumbFilePath';
+        $this->picturerUploaderStub
+            ->method('getThumbFilePath')
+            ->willReturn($dummyThumbFilePath);
+        $this->setReturnValueForSavePicturePath();
+        $response = $this->uploadInteractor->upload($this->createRequest());
+        $this->assertEquals($dummyThumbFilePath, $response->thumbPath);
+    }
+
+    private function createRequest()
+    {
         $request = new Request();
         $request->mandant = $this->mandantStub;
-        $request->file = $file;
-        $request->dirName = $dir;
+        $request->file = $this->dummyFile;
         $request->loggedInUser = $this->userStub;
-        $response = $this->uploadInteractor->upload($request);
+        return $request;
+    }
 
+    private function setReturnValueForSavePicturePath($returnValue = 5)
+    {
+        $this->repositoryStub
+            ->method('savePicturePath')
+            ->willReturn($returnValue);
+    }
+
+    private function setReturnValueForFileUpload($returnValue = true)
+    {
+        $this->picturerUploaderStub
+            ->method('uploadFile')
+            ->willReturn($returnValue);
     }
 
 

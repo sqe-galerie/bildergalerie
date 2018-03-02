@@ -21,7 +21,7 @@ class PictureRepositoryImpl implements \App\Picture\PictureRepository
         }
     }
 
-    public function uploadPicture(PicturePath $picturePath)
+    public function savePicturePath(PicturePath $picturePath)
     {
 
         try {

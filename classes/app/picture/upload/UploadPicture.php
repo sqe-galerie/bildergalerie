@@ -17,6 +17,10 @@ class UploadPicture
         $this->pictureUploader = $pictureUploader;
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function upload(Request $request)
     {
         $response = new Response();
@@ -27,7 +31,7 @@ class UploadPicture
 
         $picturePath = new \PicturePath($request->mandant, null, $this->pictureUploader->getUploadedFilePath(),
             $this->pictureUploader->getThumbFilePath(), $request->loggedInUser);
-        $picPathId = $this->pictureRepository->uploadPicture($picturePath);
+        $picPathId = $this->pictureRepository->savePicturePath($picturePath);
         if($picPathId != null){
             $response->picPathId = $picPathId;
             $response->filePath = $this->pictureUploader->getUploadedFilePath();

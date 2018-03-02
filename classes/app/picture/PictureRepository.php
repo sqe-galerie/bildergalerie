@@ -8,5 +8,5 @@ interface PictureRepository
 
     public function createPicture(\Picture $picture, $edit);
 
-    public function uploadPicture(\PicturePath $picturePath);
+    public function savePicturePath(\PicturePath $picturePath);
 }
