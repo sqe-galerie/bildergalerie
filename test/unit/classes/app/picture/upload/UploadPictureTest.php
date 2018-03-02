@@ -31,7 +31,7 @@ class UploadPictureTest extends TestCase
     private $picturerUploaderStub;
 
     private $dummyFile = array(
-        "tmp_name" => "test/unit/classes/app/picture/upload/twitter.png",
+        "tmp_name" => "twitter.png",
         "name" => "twitter"
     );
 
