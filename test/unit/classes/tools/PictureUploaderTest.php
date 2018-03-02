@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 /**
  * subclass to exchange the move_uploaded_file function
  */
-class TestablePictureUploader extends PictureUploader
+class TestablePictureUploader extends FileSystemPictureUploader
 {
     function move_uploaded_file($temporary_name, $target_path)
     {
@@ -61,7 +61,7 @@ class PictureUploaderTest extends TestCase {
     }
     
     public function testUploadFile() {
-        $sourceFilePath = realpath("test/e2e/pictures/twitter.png");  
+        $sourceFilePath = realpath(__DIR__ . "/../../../e2e/pictures/twitter.png");
         $targetName = "_pictureUploaderImage.png";
     
         $tmpFile = array(
@@ -74,8 +74,8 @@ class PictureUploaderTest extends TestCase {
         $this->assertFileNotExists($this->destFolderPath . "/thumbs/" . $targetName);
 
         // perform upload
-        $uploader = new TestablePictureUploader($tmpFile, $this->destFolderPath);
-        $uploader->uploadFile(32); // small thumb 
+        $uploader = new TestablePictureUploader($this->destFolderPath);
+        $uploader->uploadFile($tmpFile, 32); // small thumb
 
         // source file should be copied
         $this->assertFileExists($this->destFolderPath . "/" . $targetName ) ;

@@ -1,5 +1,3 @@
-import { Selector } from 'testcafe';
-
 import { SERVER_URL } from "../config";
 import { DEMO_USER, GUEST } from "../roles";
 import PagePictureCreate from "../page-objects/PagePictureCreate";

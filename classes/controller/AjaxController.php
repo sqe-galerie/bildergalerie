@@ -70,38 +70,22 @@ class AjaxController extends BildergalerieController
 
         $file = $this->getRequest()->getFiles()["uploadFile"];
 
-        $dirName = "uploads/" . $this->mandant->getMandantId();
-        if (!is_dir($dirName)) {
-            mkdir($dirName);
-        }
+        $boundary = $this->application->getPictureBoundary();
+        $request = new \App\Picture\Upload\Request();
+        $request->file = $file;
+        $request->mandant = $this->mandant;
+        $request->loggedInUser = $this->baseFactory->getAuthenticator()->getLoggedInUser();
+        $response = $boundary->uploadPicture($request);
 
-        $picUploader = new PictureUploader($file, $dirName);
-        if (!$picUploader->uploadFile()) {
-            // upload failed so we return the default error message
+        if(!$response->success){
             return json_encode($resultArray);
         }
 
-        // picture upload was successful, now we save the path in our database
-        try {
-            $picPathDAO = new PicturePathDAO($this->baseFactory->getDbConnection(), $this->mandant);
-
-            $picturePath = new PicturePath($this->mandant, /* id will be created */
-                null, $picUploader->getUploadedFilePath(),
-                $picUploader->getThumbFilePath(), $this->baseFactory->getAuthenticator()->getLoggedInUser());
-
-            $picPathId = $picPathDAO->createPicturePath($picturePath);
-        } catch (Exception $e) {
-            // if anything goes wrong, we must delete the uploaded file
-            $picUploader->deleteUploadedFiles();
-            throw $e;
-        }
-
-
         $resultArray["status"] = "OK";
-        $resultArray["picPathId"] = $picPathId;
-        $resultArray["filePath"] = $picUploader->getUploadedFilePath();
+        $resultArray["picPathId"] = $response->picPathId;
+        $resultArray["filePath"] = $response->filePath;
         $resultArray["fileName"] = $file["name"];
-        $resultArray["thumbPath"] = $picUploader->getThumbFilePath();
+        $resultArray["thumbPath"] = $response->thumbPath;
         return json_encode($resultArray);
     }
 

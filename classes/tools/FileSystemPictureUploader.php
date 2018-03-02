@@ -6,7 +6,7 @@
  * Date: 19.02.16
  * Time: 19:22
  */
-class PictureUploader
+class FileSystemPictureUploader implements \App\Picture\PictureUploader
 {
 
     const THUMBS_FOLDER_NAME = "thumbs";
@@ -35,27 +35,32 @@ class PictureUploader
 
     private $thumbFilePath;
 
-    public function __construct($tmpFile, $destFolderPath)
+    public function __construct($destFolderPath)
     {
-        $this->tmpFilePath = $tmpFile["tmp_name"];
-        $this->fileName = $tmpFile["name"];
-        $this->destFolderPath = $destFolderPath;
-
-        if (!exif_imagetype($this->tmpFilePath)) {
-            throw new FileIsNotAnImage($this->fileName);
+        if(!is_dir($destFolderPath)){
+            mkdir($destFolderPath);
         }
+        $this->destFolderPath = $destFolderPath;
     }
 
     /**
      * Moves the temporary file to the upload folder
      * and creates a thumbnail.
      *
+     * @param $tmpFile
      * @param int|false $thumbWidth
      * @return bool
      * @throws FileAlreadyExists
+     * @throws FileIsNotAnImage
      */
-    public function uploadFile($thumbWidth = 800)
+    public function uploadFile($tmpFile, $thumbWidth = 800)
     {
+        $this->tmpFilePath = $tmpFile["tmp_name"];
+        $this->fileName = $tmpFile["name"];
+        if (!exif_imagetype($this->tmpFilePath)) {
+            throw new FileIsNotAnImage($this->fileName);
+        }
+
         $this->uploadedFilePath = $this->destFolderPath . "/" . $this->fileName;
 
         if (is_file($this->uploadedFilePath)) {
