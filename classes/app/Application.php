@@ -4,6 +4,8 @@
 namespace App;
 
 
+use App\Picture\PictureBoundary;
+
 interface Application
 {
 
@@ -12,6 +14,9 @@ interface Application
      */
     public function getExhibitionBoundary();
 
+    /**
+     * @return PictureBoundary
+     */
     public function getPictureBoundary();
 
 }

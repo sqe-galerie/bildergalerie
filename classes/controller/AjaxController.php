@@ -68,10 +68,8 @@ class AjaxController extends BildergalerieController
 
         $file = $this->getRequest()->getFiles()["uploadFile"];
 
-        $dirName = "uploads/" . $this->mandant->getMandantId();
         $boundary = $this->application->getPictureBoundary();
         $request = new \App\Picture\Upload\Request();
-        $request->dirName = $dirName;
         $request->file = $file;
         $request->mandant = $this->mandant;
         $request->loggedInUser = $this->baseFactory->getAuthenticator()->getLoggedInUser();
