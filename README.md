@@ -12,6 +12,14 @@ First install required dependencies with composer:
 Then setup the database and set the correct parameters in the `.env` file (see [.env.sample](./.env.sample)
 for details).
 
+# Project links
+* [Backlog](https://github.com/sqe-galerie/bildergalerie/projects/1) - organizes our project TODOs
+* [4Minitz](https://4minitz-htw.felixble.de/) - takes care about our meeting minutes
+* [Wiki](https://github.com/sqe-galerie/bildergalerie/wiki) - contains our documentation
+* [Demo Server](http://demo.hildes-bildergalerie.de/) - shows the `develop` version
+* [TravisCI](https://travis-ci.org/sqe-galerie/bildergalerie) - runs tests on each commit and deploys the app to our demo server
+* [SonarQube](https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie%3Adevelop) - keeps an eye on our code quality
+
 # Getting started as developer
 
 To run the application you can use [vagrant](https://www.vagrantup.com/) to set up the development environment.
