@@ -30,3 +30,9 @@ After VM has been started you can access the application with your browser at [h
 If you want to reset your testing environemnt (database / uploads directory) simply execute the `reset-db` npm script:
 
     npm run reset-db
+    
+## Auto-Tests and useful scripts
+
+Our test code is placed in the `test` directory. The tests and other useful utitlies can be executes as npm scripts with the `npm run` command. See the [package.json](./package.json#L12) script property for a list of all scripts. If you want to run our end-to-end tests just execute the following script, to give one example:
+
+    npm run test:e2e
