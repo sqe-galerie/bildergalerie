@@ -64,8 +64,8 @@ class FileSystemPictureUploader implements \App\Picture\PictureUploader
             throw new FileAlreadyExists($this->fileName);
         }
 
-        $success = move_uploaded_file($this->tmpFilePath, $this->uploadedFilePath);
-
+        $success = $this->move_uploaded_file($this->tmpFilePath, $this->uploadedFilePath);
+ 
         if ($success && $thumbWidth) {
             try {
                 $this->thumbFilePath = $this->createThumbnail($thumbWidth);
@@ -78,6 +78,11 @@ class FileSystemPictureUploader implements \App\Picture\PictureUploader
         return $success;
     }
 
+    function move_uploaded_file($temporary_name, $target_path)
+    {
+        return move_uploaded_file($temporary_name, $target_path);
+    } 
+
     /**
      * Creates a thumbnail of the previously uploaded image.
      *
@@ -86,8 +91,19 @@ class FileSystemPictureUploader implements \App\Picture\PictureUploader
      */
     private function createThumbnail($thumbWidth)
     {
-        // load image and get image size
-        $img = imagecreatefromjpeg($this->uploadedFilePath);
+        // load image and get image size 
+        $extension = pathinfo(strtolower($this->uploadedFilePath))["extension"];
+        if($extension === "jpg" || $extension === "jpeg"){ 
+            $img = imagecreatefromjpeg($this->uploadedFilePath);
+        }else if($extension === "png"){
+            $img = imagecreatefrompng($this->uploadedFilePath);  
+        }else if($extension === "gif"){
+            $img = imagecreatefromgif($this->uploadedFilePath); 
+        }else{
+            $img = imagecreatefromjpeg($this->uploadedFilePath); // old behavior
+            // throw exception instead?
+        } 
+        
         $width = imagesx( $img );
         $height = imagesy( $img );
 

@@ -2,7 +2,6 @@
 [![Coverage](https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie%3Adevelop&metric=coverage#.svg)](https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie%3Adevelop)
  [![Coverage](https://sonarcloud.io/api/badges/measure?key=sqe%3Abildergalerie%3Adevelop&metric=new_coverage#.svg)](https://sonarcloud.io/dashboard?id=sqe%3Abildergalerie%3Adevelop)
  
- 
 
 # Getting started
 

@@ -17,3 +17,5 @@ define('reCAPTCHA_SECRET_KEY', getenv('reCAPTCHA_SECRET_KEY'));
 define('MANDANT_EMAIL', getenv('MANDANT_EMAIL'));
 define('SENDER_EMAIL_ADDRESS', getenv('SENDER_EMAIL_ADDRESS'));
 define('ERROR_EMAIL', getenv('ERROR_EMAIL'));
+
+define('PASSWORD_PEPPER', getenv('PASSWORD_PEPPER'));
